@@ -559,7 +559,7 @@ export default function Home() {
         key={i}
         className="mx-4 w-[340px] flex-shrink-0 overflow-hidden rounded-[24px] bg-white border border-gray-100"
       >
-        <div className="relative aspect-square overflow-hidden bg-bg2">
+        <div className="relative aspect-[3/4] overflow-hidden bg-bg2">
   <Image src={item.src} alt={item.name} fill className="object-contain p-3" />
 </div>
         <div className="p-6">
