@@ -302,7 +302,7 @@ export default function Home() {
             </div>
 
             {/* Stats — mt-14 odvaja od dugmadi */}
-<div className="mt-14 flex w-full justify-between gap-8 rounded-3xl border border-white/[0.10] bg-white/[0.05] px-6 py-5 backdrop-blur-md sm:px-8 sm:py-7">
+<div className="mt-14 inline-flex gap-8 rounded-3xl border border-white/[0.10] bg-white/[0.05] px-6 py-5 backdrop-blur-md sm:px-8 sm:py-7">
   {([["300+","Saradnji"],["1:1","Pristup"],["100%","Posvećenost"]] as const).map(([big,small]) => (
     <div key={small}>
       <div className="font-heading text-2xl font-bold text-theme sm:text-[2.2rem]">{big}</div>
