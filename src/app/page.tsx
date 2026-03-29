@@ -822,17 +822,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* ═══════════════ FLOATING WHATSAPP ════════════════════════════════
-          z-[999] — iznad svega, bottom-8 za "dah" od dna ekrana
-      ═════════════════════════════════════════════════════════════════ */}
-      <button
-        onClick={openWhatsApp}
-        aria-label="Kontaktiraj me na WhatsApp"
-        className="fixed bottom-8 right-7 z-[999] rounded-full bg-theme px-6 py-3.5 text-sm font-bold uppercase tracking-[0.07em] text-white shadow-[0_8px_36px_rgba(244,30,30,0.50)] transition-all hover:-translate-y-1 hover:bg-header hover:shadow-[0_12px_40px_rgba(0,0,0,0.45)]"
-      >
-        WhatsApp
-      </button>
     </>
   );
 }
