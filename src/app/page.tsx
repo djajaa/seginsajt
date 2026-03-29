@@ -153,12 +153,7 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <ThemeBtn
-              href="#contact"
-              className="hidden lg:inline-flex !min-h-[38px] !px-6 !py-2 !text-[13px] !whitespace-nowrap"
-            >
-              JAVI SE
-            </ThemeBtn>
+          
 
             {/* Hamburger */}
             <button
