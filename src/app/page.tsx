@@ -113,12 +113,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Back to top */}
-      <button
-        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`gt-back-to-top ${showBackTop ? "show" : ""}`}
-        aria-label="Nazad na vrh"
-      >↑</button>
 
       {/* ════════════════════════════ HEADER ════════════════════════════ */}
       <header className={`fixed left-0 right-0 top-0 z-50 font-heading transition-all duration-300 ${
