@@ -155,7 +155,7 @@ export default function Home() {
           <div className="flex items-center gap-4">
             <ThemeBtn
               href="#contact"
-              className="hidden sm:inline-flex !min-h-[40px] !px-7 !py-3 !text-sm"
+              className="hidden sm:inline-flex !min-h-[10px] !px-7 !py-3 !text-sm"
             >
               JAVI SE
             </ThemeBtn>
