@@ -269,7 +269,7 @@ export default function Home() {
         {/* Blagi crveni glow pozadi teksta */}
         <div className="absolute left-0 top-1/4 h-[600px] w-[600px] -translate-x-1/4 rounded-full bg-theme/[0.07] blur-[120px]" />
 
-        <div className={`${cx} relative z-10 pb-24 pt-40 md:pb-28 lg:pb-32 lg:pt-44`}>
+        <div className={`${cx} relative z-10 pb-24 pt-40 md:pb-28 lg:pb-32 lg:pt-44 overflow-hidden`}>
           <div className="max-w-4xl">
             {/* Subtitle */}
             <div className="mb-6 flex items-center gap-3">
@@ -302,14 +302,14 @@ export default function Home() {
             </div>
 
             {/* Stats — mt-14 odvaja od dugmadi */}
-           <div className="mt-14 grid w-full grid-cols-3 gap-2 rounded-3xl border border-white/[0.10] bg-white/[0.05] p-5 backdrop-blur-md sm:gap-4 sm:p-7">
-              {([["300+","Saradnji"],["1:1","Pristup"],["100%","Posvećenost"]] as const).map(([big,small]) => (
-                <div key={small}>
-                  <div className="font-heading text-3xl font-bold text-theme sm:text-[2.2rem]">{big}</div>
-                  <div className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/55">{small}</div>
-                </div>
-              ))}
-            </div>
+           <div className="mt-14 grid grid-cols-3 rounded-3xl border border-white/[0.10] bg-white/[0.05] backdrop-blur-md">
+  {([["300+","Saradnji"],["1:1","Pristup"],["100%","Posvećenost"]] as const).map(([big,small], i) => (
+    <div key={small} className={`px-4 py-5 sm:px-6 sm:py-7 ${i > 0 ? "border-l border-white/[0.10]" : ""}`}>
+      <div className="font-heading text-2xl font-bold text-theme sm:text-[2.2rem]">{big}</div>
+      <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/55">{small}</div>
+    </div>
+  ))}
+</div>
           </div>
         </div>
       </section>
