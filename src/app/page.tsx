@@ -302,11 +302,11 @@ export default function Home() {
             </div>
 
             {/* Stats — mt-14 odvaja od dugmadi */}
-           <div className="mt-14 grid grid-cols-3 rounded-3xl border border-white/[0.10] bg-white/[0.05] backdrop-blur-md">
-  {([["300+","Saradnji"],["1:1","Pristup"],["100%","Posvećenost"]] as const).map(([big,small], i) => (
-    <div key={small} className={`px-4 py-5 sm:px-6 sm:py-7 ${i > 0 ? "border-l border-white/[0.10]" : ""}`}>
+           <div className="mt-14 flex gap-8 rounded-3xl border border-white/[0.10] bg-white/[0.05] px-6 py-5 backdrop-blur-md sm:px-8 sm:py-7">
+  {([["300+","Saradnji"],["1:1","Pristup"],["100%","Posvećenost"]] as const).map(([big,small]) => (
+    <div key={small}>
       <div className="font-heading text-2xl font-bold text-theme sm:text-[2.2rem]">{big}</div>
-      <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/55">{small}</div>
+      <div className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-white/55">{small}</div>
     </div>
   ))}
 </div>
