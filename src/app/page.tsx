@@ -220,7 +220,7 @@ export default function Home() {
                   className="flex items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.04] px-5 py-4 text-base font-bold uppercase tracking-[0.08em] text-white transition hover:border-theme/40 hover:bg-white/[0.08] hover:text-theme"
                 >
                   {link.label}
-                  <span aria-hidden="true" className="text-lg text-theme"></span>
+                  <span aria-hidden="true" className="text-lg text-theme">↗</span>
                 </a>
               ))}
             </nav>
