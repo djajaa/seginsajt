@@ -1,0 +1,574 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --gt-body:   #ffffff;
+  --gt-black:  #000000;
+  --gt-white:  #ffffff;
+  --gt-theme:  #f41e1e;
+  --gt-theme-dark: #c91414;
+  --gt-header: #1d2229;
+  --gt-text:   #555b65;
+  --gt-border: #e8eaee;
+  --gt-bg:     #1d2229;
+  --gt-bg2:    #f6f7f9;
+  --gt-bg3:    #f7f3ee;
+
+  --gt-shadow-sm: 0 4px 16px rgba(17, 24, 39, 0.06);
+  --gt-shadow-md: 0 12px 32px rgba(17, 24, 39, 0.10);
+  --gt-shadow-lg: 0 24px 64px rgba(17, 24, 39, 0.15);
+  --gt-shadow-xl: 0 40px 80px rgba(17, 24, 39, 0.20);
+  --gt-shadow-theme: 0 12px 36px rgba(244, 30, 30, 0.28);
+
+  --gt-radius-sm: 12px;
+  --gt-radius-md: 18px;
+  --gt-radius-lg: 26px;
+  --gt-radius-xl: 36px;
+
+  --gt-container: 1400px;
+
+  /* Animacijske krivulje */
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@theme inline {
+  --color-theme:  var(--gt-theme);
+  --color-header: var(--gt-header);
+  --color-txt:    var(--gt-text);
+  --color-bg2:    var(--gt-bg2);
+  --color-bg3:    var(--gt-bg3);
+
+  --font-heading: var(--font-kanit),   "Kanit",   sans-serif;
+  --font-body:    var(--font-archivo), "Archivo", sans-serif;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE LAYER — mora biti u @layer base da Tailwind utilities pobjeđuju
+═══════════════════════════════════════════════════════════════════════════ */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Blagi scroll snap osjećaj */
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--gt-text);
+    /* Prefinjeni grain + gradient pozadina */
+    background-color: #ffffff;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 10% 0%, rgba(244, 30, 30, 0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 100%, rgba(29, 34, 41, 0.03) 0%, transparent 60%),
+      linear-gradient(to bottom, #ffffff 0%, #fafbfc 100%);
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Subpixel font rendering */
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  /* Headings — @layer base, Tailwind utilities normalno pobjeđuju */
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-family: var(--font-heading);
+    color: var(--gt-header);
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    transition: color 0.3s var(--ease-in-out);
+  }
+
+  h1 { font-size: clamp(2.5rem, 6vw, 5rem);  font-weight: 800; line-height: 1.0;  }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem);  font-weight: 700; line-height: 1.1;  }
+  h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); font-weight: 700; line-height: 1.25; }
+  h4 { font-size: 1.2rem;  font-weight: 700; line-height: 1.3;  }
+  h5 { font-size: 1.05rem; font-weight: 700; }
+  h6 { font-size: 0.9rem;  font-weight: 700; letter-spacing: 0.05em; }
+
+  a {
+    text-decoration: none;
+    outline: none !important;
+    cursor: pointer;
+    color: inherit;
+    transition:
+      color 0.25s var(--ease-in-out),
+      opacity 0.25s var(--ease-in-out),
+      transform 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-in-out),
+      background-color 0.25s var(--ease-in-out);
+  }
+
+  p   { margin: 0; line-height: 1.8; transition: color 0.3s ease; }
+  ul  { padding: 0; margin: 0; list-style: none; }
+
+  button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  input, textarea, select, button { font: inherit; }
+  input:focus, textarea:focus, select:focus { outline: none; }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Responsive typography — clamp rješava većinu toga, ovo je fallback */
+  @media (max-width: 575px) {
+    body { font-size: 15px; line-height: 1.72; }
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY & SELECTION
+═══════════════════════════════════════════════════════════════════════════ */
+:focus-visible {
+  outline: 2px solid var(--gt-theme);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(244, 30, 30, 0.14);
+  color: var(--gt-header);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION SPACING
+   isolation: isolate → vlastiti stacking context → gt-trans-text (z-0)
+   ostaje iza container-a (z-10) unutar iste sekcije.
+═══════════════════════════════════════════════════════════════════════════ */
+.section-padding {
+  padding: 130px 0;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+@media (max-width: 1199px) { .section-padding { padding: 100px 0; } }
+@media (max-width:  991px) { .section-padding { padding: 80px  0; } }
+@media (max-width:  575px) { .section-padding { padding: 64px  0; } }
+
+.section-bg-2 {
+  background:
+    radial-gradient(ellipse 70% 60% at 100% 0%, rgba(244, 30, 30, 0.025), transparent 55%),
+    linear-gradient(175deg, #f4f6f9 0%, #f8f9fb 50%, #f2f4f7 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THEME BUTTON — animirani wave fill efekt
+═══════════════════════════════════════════════════════════════════════════ */
+.gt-theme-btn {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  vertical-align: middle;
+  appearance: none;
+  border: none;
+  outline: none !important;
+
+  padding: 20px 40px;
+  min-height: 62px;
+
+  background-color: var(--gt-theme);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  color: var(--gt-white);
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--gt-radius-md);
+  z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+
+  /* Višeslojni shadow za dubinu */
+  box-shadow:
+    0 1px 2px rgba(244, 30, 30, 0.20),
+    0 4px 12px rgba(244, 30, 30, 0.22),
+    0 12px 32px rgba(244, 30, 30, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.35s var(--ease-out-expo),
+    border-color 0.25s ease;
+}
+
+.gt-theme-btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 2px 4px rgba(244, 30, 30, 0.15),
+    0 8px 20px rgba(244, 30, 30, 0.28),
+    0 24px 48px rgba(244, 30, 30, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.gt-theme-btn:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+.gt-theme-btn .btn-text {
+  position: relative;
+  color: inherit;
+  z-index: 1;
+  transition: letter-spacing 0.3s var(--ease-out-expo);
+}
+
+.gt-theme-btn:hover .btn-text {
+  letter-spacing: 0.10em;
+}
+
+/* Wave fill — 5 vertikalnih kolona klize odozdo */
+.gt-theme-btn .btn-hover {
+  display: block;
+  width: calc(20% + 0.5px);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 1;
+  transform: translateY(105%);
+  background-color: var(--gt-header);
+  transition: transform 0.38s var(--ease-out-expo);
+  will-change: transform;
+}
+
+.gt-theme-btn .btn-hover--1 { left:  0%;  transition-delay: 0.00s; }
+.gt-theme-btn .btn-hover--2 { left: 20%;  transition-delay: 0.04s; }
+.gt-theme-btn .btn-hover--3 { left: 40%;  transition-delay: 0.08s; }
+.gt-theme-btn .btn-hover--4 { left: 60%;  transition-delay: 0.12s; }
+.gt-theme-btn .btn-hover--5 { left: 80%;  transition-delay: 0.16s; }
+
+.gt-theme-btn:hover .btn-hover { transform: translateY(0); }
+
+/* ── Border variant ── */
+.gt-theme-btn.style-border {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.65) !important;
+  color: var(--gt-white);
+  box-shadow: inset 0 0 0 0 transparent;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.gt-theme-btn.style-border .btn-hover { background-color: var(--gt-theme); }
+
+.gt-theme-btn.style-border:hover {
+  border-color: var(--gt-theme) !important;
+  box-shadow:
+    0 8px 24px rgba(244, 30, 30, 0.22),
+    0 20px 40px rgba(244, 30, 30, 0.14);
+}
+
+@media (max-width: 575px) {
+  .gt-theme-btn {
+    min-height: 54px;
+    padding: 16px 28px;
+    border-radius: 16px;
+    font-size: 13px;
+    letter-spacing: 0.07em;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION TITLE
+═══════════════════════════════════════════════════════════════════════════ */
+.gt-section-title h6 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gt-theme);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  letter-spacing: 0.16em;
+}
+
+.gt-section-title h2 {
+  max-width: 15ch;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRANSPARENT WATERMARK TEXT
+═══════════════════════════════════════════════════════════════════════════ */
+.gt-trans-text {
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-color: rgba(29, 34, 41, 0.07);
+  font-family: var(--font-heading);
+  font-size: 160px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.5;
+  position: absolute;
+  bottom: 16px;
+  right: -8px;
+  line-height: 1;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  max-width: 100%;
+  /* Blagi blur za dubinu */
+  filter: blur(0.4px);
+}
+
+@media (max-width: 1399px) { .gt-trans-text { font-size: 125px; } }
+@media (max-width: 1199px) { .gt-trans-text { display: none;    } }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FORM INPUTS — prefinjeni focus states
+═══════════════════════════════════════════════════════════════════════════ */
+input,
+textarea,
+select {
+  border-radius: 14px;
+  transition:
+    border-color 0.22s var(--ease-in-out),
+    box-shadow 0.22s var(--ease-in-out),
+    background-color 0.22s var(--ease-in-out),
+    transform 0.22s var(--ease-out-expo);
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: #c4c9d4;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(244, 30, 30, 0.45);
+  box-shadow:
+    0 0 0 4px rgba(244, 30, 30, 0.07),
+    0 2px 8px rgba(244, 30, 30, 0.06);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CARD SURFACES
+═══════════════════════════════════════════════════════════════════════════ */
+.gt-soft-card {
+  border-radius: var(--gt-radius-lg);
+  background: rgba(255, 255, 255, 0.97);
+  /* Višeslojni shadow za "floating" osjećaj */
+  box-shadow:
+    0 0 0 1px rgba(17, 24, 39, 0.04),
+    0 2px 4px rgba(17, 24, 39, 0.04),
+    0 8px 20px rgba(17, 24, 39, 0.06),
+    0 24px 48px rgba(17, 24, 39, 0.04);
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.35s var(--ease-out-expo);
+}
+
+.gt-soft-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px rgba(17, 24, 39, 0.04),
+    0 4px 8px rgba(17, 24, 39, 0.05),
+    0 16px 36px rgba(17, 24, 39, 0.09),
+    0 36px 64px rgba(17, 24, 39, 0.06);
+}
+
+.gt-dark-card {
+  border-radius: var(--gt-radius-lg);
+  /* Prefinjeni tamni gradijent s blagim plavim tonom */
+  background:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(40, 48, 60, 0.8), transparent 70%),
+    linear-gradient(160deg, #222831 0%, #1a1f27 50%, #161b22 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 24px 48px rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.78);
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.35s var(--ease-out-expo);
+}
+
+.gt-dark-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.30),
+    0 32px 60px rgba(0, 0, 0, 0.22);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR — tanja, elegantnija
+═══════════════════════════════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f1318;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff3a3a 0%, var(--gt-theme) 60%, #b01010 100%);
+  border-radius: 999px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff5555, var(--gt-theme));
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MARQUEE
+═══════════════════════════════════════════════════════════════════════════ */
+@keyframes marquee-slow {
+  0%   { transform: translateX(0);    }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════════════════════════════════════════ */
+.gt-back-to-top {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gt-theme);
+  color: var(--gt-white);
+  font-size: 18px;
+  z-index: 998;
+  cursor: pointer;
+  border-radius: 999px;
+  opacity: 0;
+  visibility: hidden;
+  /* Višeslojni shadow */
+  box-shadow:
+    0 2px 6px rgba(244, 30, 30, 0.20),
+    0 8px 20px rgba(244, 30, 30, 0.30),
+    0 16px 36px rgba(244, 30, 30, 0.16);
+  transition:
+    opacity 0.3s var(--ease-in-out),
+    visibility 0.3s var(--ease-in-out),
+    transform 0.35s var(--ease-spring),
+    background-color 0.25s ease,
+    box-shadow 0.35s var(--ease-out-expo);
+}
+
+.gt-back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gt-back-to-top:hover {
+  background: var(--gt-header);
+  transform: translateY(-4px) scale(1.06);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.20),
+    0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.gt-back-to-top:active {
+  transform: translateY(-2px) scale(0.97);
+}
+
+@media (max-width: 767px) {
+  .gt-back-to-top {
+    width: 46px;
+    height: 46px;
+    right: 20px;
+    bottom: 88px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY ANIMATIONS — reusable klase za page.tsx
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hover lift — za sve kartice koje trebaju lift bez gt-soft-card */
+.gt-hover-lift {
+  transition:
+    transform 0.35s var(--ease-out-expo),
+    box-shadow 0.35s var(--ease-out-expo);
+}
+
+.gt-hover-lift:hover {
+  transform: translateY(-5px);
+}
+
+/* Shimmer efekat na slikama */
+.gt-img-hover {
+  transition: transform 0.6s var(--ease-out-expo), filter 0.4s ease;
+}
+
+.gt-img-hover:hover {
+  transform: scale(1.03);
+  filter: brightness(1.04);
+}
+
+/* Red accent line — dekorativni element */
+.gt-accent-line {
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gt-theme), rgba(244, 30, 30, 0.3));
+  border-radius: 999px;
+}
+
+/* Glow efekat za theme-colored elemente */
+.gt-theme-glow {
+  box-shadow: 0 0 24px rgba(244, 30, 30, 0.35), 0 0 48px rgba(244, 30, 30, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FLOATING WHATSAPP BUTTON PULSE
+═══════════════════════════════════════════════════════════════════════════ */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(1.55); opacity: 0;   }
+}
+
+/* Dodati na WhatsApp btn u page.tsx ako se želi pulse efekt */
+.gt-pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gt-theme);
+  animation: pulse-ring 2s var(--ease-out-expo) infinite;
+  z-index: -1;
+}
