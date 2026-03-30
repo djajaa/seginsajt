@@ -483,7 +483,7 @@ export default function Home() {
   <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-[#f4f6f9] to-transparent sm:w-24" />
   <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-[#f4f6f9] to-transparent sm:w-24" />
 
-  <div style={{ animation: "marquee-slow 55s linear infinite", display: "flex", width: "max-content" }}>
+  <div style={{ animation: "marquee-slow 75s linear infinite", display: "flex", width: "max-content" }}>
     {[
       {
         src: "/images/transformations/client-1.png",
