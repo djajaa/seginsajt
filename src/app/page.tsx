@@ -480,12 +480,10 @@ export default function Home() {
           </div>
 
           <div className="relative overflow-hidden">
-  {/* Lijevi fade */}
-  <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-[#f4f6f9] to-transparent" />
-  {/* Desni fade */}
-  <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-[#f4f6f9] to-transparent" />
+  <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-12 bg-gradient-to-r from-[#f4f6f9] to-transparent sm:w-24" />
+  <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 bg-gradient-to-l from-[#f4f6f9] to-transparent sm:w-24" />
 
-  <div className="flex [animation:marquee-slow_25s_linear_infinite]">
+  <div style={{ animation: "marquee-slow 35s linear infinite", display: "flex", width: "max-content" }}>
     {[
       {
         src: "/images/transformations/client-1.png",
@@ -551,10 +549,10 @@ export default function Home() {
     ].map((item, i) => (
       <div
         key={i}
-        className="mx-4 w-[340px] flex-shrink-0 overflow-hidden rounded-[24px] bg-white border border-gray-100"
+        className="mx-3 w-[260px] flex-shrink-0 overflow-hidden rounded-[24px] bg-white sm:w-[340px]"
       >
-        <div className="relative aspect-[3/4] overflow-hidden bg-bg2">
-  <Image src={item.src} alt={item.name} fill className="object-contain p-3" />
+        <div className="relative aspect-square overflow-hidden bg-bg2">
+  <Image src={item.src} alt={item.name} fill className="object-contain" />
 </div>
         <div className="p-6">
           <h3 className="text-base font-bold text-header">{item.name}</h3>
