@@ -549,7 +549,7 @@ export default function Home() {
     ].map((item, i) => (
       <div
         key={i}
-        className="mx-3 w-[260px] flex-shrink-0 overflow-hidden rounded-[24px] bg-white border-2 border-theme shadow-[0_0_12px_rgba(244,30,30,0.4)] sm:w-[340px]"
+        className="mx-3 w-[260px] flex-shrink-0 overflow-hidden rounded-[24px] bg-white sm:w-[340px]"
       >
         <div className="relative aspect-square overflow-hidden bg-bg2">
   <Image src={item.src} alt={item.name} fill className="object-contain" />
